@@ -102,10 +102,27 @@ function navigateToPage(pageId) {
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Close sidebar on mobile after navigation
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar && sidebar.classList.contains('show')) {
+        sidebar.classList.remove('show');
+    }
 }
 
 // Bind DOM event listeners
 function bindEvents() {
+    // Sidebar Toggle for Mobile
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('show');
+            }
+        });
+    }
+
     // Mobil Search
     const searchInput = document.getElementById('search-car');
     if (searchInput) {
