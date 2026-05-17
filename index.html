@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPK Pemilihan Mobil Bekas - SAW, WP, SMART</title>
+
+    <!-- SEO Optimization -->
+    <meta name="description"
+        content="Sistem Pendukung Keputusan Pemilihan Mobil Bekas menggunakan tiga metode MCDM: SAW, WP, dan SMART. Studi Kasus Jurnal Akademik.">
+    <meta name="author" content="Duta Agung Pramana">
+
+    <!-- External CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- FULL SCREEN LOADING ANIMATION -->
+    <div id="app-loader" class="loader-wrapper">
+        <div class="loader"></div>
+        <div class="loader-text animate__animated animate__pulse animate__infinite">Memuat Sistem SPK...</div>
+        <div class="loader-subtext">Duta Agung Pramana | NIM 231011400036</div>
+    </div>
+
+    <!-- MODERN SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-car-rear"></i>
+            <span>SPK MOBIL BEKAS</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item active">
+                <a class="sidebar-link" href="#dashboard">
+                    <i class="fa-solid fa-gauge"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#data-mobil">
+                    <i class="fa-solid fa-car"></i> <span>Data Mobil</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#kriteria">
+                    <i class="fa-solid fa-list-check"></i> <span>Kriteria Penilaian</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-saw">
+                    <i class="fa-solid fa-calculator text-info"></i> <span>Perhitungan SAW</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-wp">
+                    <i class="fa-solid fa-calculator text-primary"></i> <span>Perhitungan WP</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-smart">
+                    <i class="fa-solid fa-calculator text-warning"></i> <span>Perhitungan SMART</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#ranking">
+                    <i class="fa-solid fa-trophy text-danger"></i> <span>Rekomendasi & Ranking</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#visualisasi">
+                    <i class="fa-solid fa-chart-line text-success"></i> <span>Visualisasi Data</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#tentang">
+                    <i class="fa-solid fa-circle-info"></i> <span>Tentang Sistem</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- User Academic Card in Sidebar Footer -->
+        <div class="sidebar-user">
+            <div class="stat-icon bg-info text-dark rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px; font-weight: bold;">
+                DP
+            </div>
+            <div class="sidebar-user-info">
+                <h6 class="mb-0 text-white">Duta Agung Pramana</h6>
+                <span class="text-info fs-11" style="font-weight: 600;">NIM: 231011400036</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN APP BODY -->
+    <main class="main-content">
+
+        <!-- TOP NAV HEADER BAR -->
+        <header class="top-navbar glass-panel px-4 py-3 animate__animated animate__fadeInDown">
+            <div class="page-title">
+                <h2 class="mb-0 text-white">Sistem Pendukung Keputusan</h2>
+                <p class="text-secondary mb-0">Pemilihan Mobil Bekas dengan Metode SAW, WP & SMART</p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="badge bg-dark border border-secondary px-3 py-2 text-info">
+                    <i class="fa-solid fa-graduation-cap me-2"></i> 06TPLP001
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== SECTION 1: DASHBOARD ==================== -->
+        <section id="section-dashboard" class="animate__animated animate__fadeIn">
+            <!-- Stat Cards Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="glass-panel stat-card blue">
+                        <div class="stat-icon"><i class="fa-solid fa-car-side"></i></div>
+                        <div class="stat-value" id="stat-total-cars">0</div>
+                        <div class="stat-label">Total Alternatif Mobil</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="glass-panel stat-card cyan">
+                        <div class="stat-icon"><i class="fa-solid fa-tags"></i></div>
+                        <div class="stat-value" id="stat-avg-price">Rp 0</div>
+                        <div class="stat-label">Rata-rata Harga Mobil</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="glass-panel stat-card gold">
+                        <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <div class="stat-value text-truncate" id="stat-best-saw">-</div>
+                        <div class="stat-label" id="stat-best-saw-score">Skor SAW: 0.0000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Data and Quick Info -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="glass-panel p-4 mb-4">
+                        <h4 class="mb-3 text-white"><i class="fa-solid fa-list-ol text-info me-2"></i>Daftar Mobil
+                            Teratas (Sample)</h4>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Mobil</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-recent-cars">
+                                    <!-- Recent cars go here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-panel p-4 mb-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <h4 class="mb-3 text-info"><i class="fa-solid fa-circle-nodes me-2"></i>Multi-Method SPK
+                            </h4>
+                            <p class="text-secondary fs-14">
+                                Website ini dirancang khusus untuk membandingkan tiga metode MCDM (Multi-Criteria
+                                Decision Making) terpopuler:
+                            </p>
+                            <ul class="text-secondary fs-13 ps-3">
+                                <li class="mb-2"><strong>SAW:</strong> Penjumlahan terbobot rating kecocokan
+                                    ternormalisasi secara linear.</li>
+                                <li class="mb-2"><strong>WP:</strong> Perkalian rating kecocokan yang dipangkatkan
+                                    dengan bobot kriteria.</li>
+                                <li class="mb-2"><strong>SMART:</strong> Normalisasi linear dengan perhitungan nilai
+                                    utility rentang skala.</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-dark rounded border border-secondary text-center mt-3">
+                            <div class="fs-12 text-muted">Mahasiswa Pengembang:</div>
+                            <div class="fw-bold text-white fs-15">Duta Agung Pramana</div>
+                            <div class="text-info fs-12 fw-bold">NIM: 231011400036</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2: DATA MOBIL (CRUD) ==================== -->
+        <section id="section-data-mobil" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-table-list text-info me-2"></i>Kelola Data Mobil
+                        Bekas</h4>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary" id="btn-add-car" data-bs-toggle="modal"
+                            data-bs-target="#modal-car">
+                            <i class="fa-solid fa-plus me-2"></i> Tambah Mobil
+                        </button>
+                        <button class="btn btn-outline-info" onclick="exportToCSV()">
+                            <i class="fa-solid fa-file-export me-2"></i> Export CSV
+                        </button>
+                        <label class="btn btn-outline-success mb-0 cursor-pointer">
+                            <i class="fa-solid fa-file-import me-2"></i> Import CSV
+                            <input type="file" id="csv-file" accept=".csv" class="d-none">
+                        </label>
+                        <button class="btn btn-outline-danger" onclick="resetSystemData()">
+                            <i class="fa-solid fa-arrows-rotate me-2"></i> Reset Default
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters & Search Bar -->
+                <div class="glass-panel search-filter-container bg-dark-opacity mb-4">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-text bg-dark border-secondary text-muted"><i
+                                        class="fa-solid fa-magnifying-glass"></i></span>
+                                <input type="text" class="form-control" id="search-car"
+                                    placeholder="Cari nama mobil bekas...">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="filter-seats">
+                                <option value="">Semua Kapasitas Kursi</option>
+                                <option value="small">&le; 4 Kursi</option>
+                                <option value="medium">5 Kursi</option>
+                                <option value="large">&ge; 6 Kursi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cars Data Table -->
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th class="cursor-pointer" data-sort="name">Nama Mobil <i
+                                        class="fa-solid fa-sort ms-1"></i></th>
+                                <th class="cursor-pointer" data-sort="price">Harga (C1) <i
+                                        class="fa-solid fa-sort ms-1"></i></th>
+                                <th class="cursor-pointer" data-sort="engine">Kapasitas Mesin (CC) (C2) <i
+                                        class="fa-solid fa-sort ms-1"></i></th>
+                                <th class="cursor-pointer" data-sort="mileage">Kilometer (C3) <i
+                                        class="fa-solid fa-sort ms-1"></i></th>
+                                <th class="cursor-pointer" data-sort="seats">Kursi (C4) <i
+                                        class="fa-solid fa-sort ms-1"></i></th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-cars">
+                            <!-- JS loaded cars -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Table Pagination -->
+                <nav class="d-flex justify-content-center mt-3">
+                    <ul class="pagination pagination-dark" id="pagination-cars">
+                        <!-- Pagination buttons -->
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: KRITERIA ==================== -->
+        <section id="section-kriteria" class="d-none animate__animated animate__fadeIn">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="glass-panel p-4 h-100">
+                        <h4 class="mb-4 text-white"><i class="fa-solid fa-sliders text-info me-2"></i>Kriteria & Bobot
+                            Penilaian SPK</h4>
+                        <div class="table-responsive mb-4">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Kode</th>
+                                        <th>Nama Kriteria</th>
+                                        <th>Tipe Kriteria</th>
+                                        <th>Bobot Preferensi</th>
+                                        <th>Persentase</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>C1</strong></td>
+                                        <td>Harga Mobil</td>
+                                        <td><span class="badge-spk badge-cost"><i class="fa-solid fa-minus"></i>
+                                                Cost</span></td>
+                                        <td><strong>0.35</strong></td>
+                                        <td>
+                                            <div class="progress"
+                                                style="height: 8px; background: rgba(255,255,255,0.05);">
+                                                <div class="progress-bar bg-danger" style="width: 35%;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>C2</strong></td>
+                                        <td>Kapasitas Mesin (CC)</td>
+                                        <td><span class="badge-spk badge-benefit"><i class="fa-solid fa-plus"></i>
+                                                Benefit</span></td>
+                                        <td><strong>0.30</strong></td>
+                                        <td>
+                                            <div class="progress"
+                                                style="height: 8px; background: rgba(255,255,255,0.05);">
+                                                <div class="progress-bar bg-success" style="width: 30%;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>C3</strong></td>
+                                        <td>Kilometer Mobil (KM)</td>
+                                        <td><span class="badge-spk badge-cost"><i class="fa-solid fa-minus"></i>
+                                                Cost</span></td>
+                                        <td><strong>0.25</strong></td>
+                                        <td>
+                                            <div class="progress"
+                                                style="height: 8px; background: rgba(255,255,255,0.05);">
+                                                <div class="progress-bar bg-danger" style="width: 25%;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>C4</strong></td>
+                                        <td>Kapasitas Tempat Duduk (Kursi)</td>
+                                        <td><span class="badge-spk badge-benefit"><i class="fa-solid fa-plus"></i>
+                                                Benefit</span></td>
+                                        <td><strong>0.10</strong></td>
+                                        <td>
+                                            <div class="progress"
+                                                style="height: 8px; background: rgba(255,255,255,0.05);">
+                                                <div class="progress-bar bg-success" style="width: 10%;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary text-secondary fs-13">
+                            <strong><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Catatan:</strong>
+                            Total keseluruhan bobot kriteria harus sama dengan **1.00** (0.35 + 0.30 + 0.25 + 0.10 =
+                            1.00). Kriteria bertipe **Cost** berarti semakin kecil nilai mobil maka semakin baik
+                            ratingnya, sedangkan **Benefit** berarti semakin besar nilai mobil maka semakin baik
+                            ratingnya.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-panel p-4 h-100">
+                        <h4 class="mb-4 text-info"><i class="fa-solid fa-book-open me-2"></i>Aturan Klasifikasi</h4>
+                        <div class="mb-4">
+                            <h6 class="text-white mb-2">Harga Sub-Kriteria:</h6>
+                            <ul class="text-muted list-unstyled fs-13 ps-0">
+                                <li class="mb-1 d-flex justify-content-between"><span>&lt; $25,000 :</span> <span
+                                        class="fw-bold text-success">Sangat Tinggi (Bobot 5)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>$25,100 - $50,000 :</span> <span
+                                        class="fw-bold text-info">Tinggi (Bobot 4)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>$51,000 - $75,000 :</span> <span
+                                        class="fw-bold text-warning">Sedang (Bobot 3)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>$76,000 - $100,000 :</span> <span
+                                        class="fw-bold text-danger">Rendah (Bobot 2)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>&gt; $100,000 :</span> <span
+                                        class="fw-bold text-danger">Sangat Rendah (Bobot 1)</span></li>
+                            </ul>
+                        </div>
+                        <hr class="border-secondary">
+                        <div>
+                            <h6 class="text-white mb-2">Kilometer Sub-Kriteria:</h6>
+                            <ul class="text-muted list-unstyled fs-13 ps-0">
+                                <li class="mb-1 d-flex justify-content-between"><span>&lt; 100,000 KM :</span> <span
+                                        class="fw-bold text-success">Sangat Tinggi (Bobot 5)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>100k - 180k KM :</span> <span
+                                        class="fw-bold text-info">Tinggi (Bobot 4)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>180k - 250k KM :</span> <span
+                                        class="fw-bold text-warning">Sedang (Bobot 3)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>250k - 320k KM :</span> <span
+                                        class="fw-bold text-danger">Rendah (Bobot 2)</span></li>
+                                <li class="mb-1 d-flex justify-content-between"><span>&gt; 320,000 KM :</span> <span
+                                        class="fw-bold text-danger">Sangat Rendah (Bobot 1)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: PERHITUNGAN SAW ==================== -->
+        <section id="section-perhitungan-saw" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-info me-2"></i>Langkah Perhitungan
+                        SAW (Simple Additive Weighting)</h4>
+                    <button class="btn btn-sm btn-info btn-export-pdf" data-method="saw"><i
+                            class="fa-solid fa-file-pdf me-1"></i> Cetak Laporan PDF</button>
+                </div>
+
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#saw-tab-1">1. Matriks
+                            Keputusan</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#saw-tab-2">2. Normalisasi
+                            Matriks</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#saw-tab-3">3. Pembobotan & Skor
+                            Akhir</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#saw-tab-4">4. Ranking
+                            Akhir</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-2">
+                    <!-- Tab 1: Matriks Keputusan -->
+                    <div class="tab-pane fade show active" id="saw-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan Awal (X):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (CC) (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                        <th>Kapasitas Kursi (C4)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-saw-matrix">
+                                    <!-- Matrix rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Normalisasi -->
+                    <div class="tab-pane fade" id="saw-tab-2">
+                        <div class="p-3 border border-secondary rounded bg-dark mb-4 fs-13 text-secondary">
+                            <strong>Rumus Normalisasi Linear (r<sub>ij</sub>):</strong><br>
+                            - Kriteria Benefit (C2, C4): r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>ij</sub>)<br>
+                            - Kriteria Cost (C1, C3): r<sub>ij</sub> = min(x<sub>ij</sub>) / x<sub>ij</sub>
+                        </div>
+                        <h6 class="text-white mb-2">Hasil Normalisasi Matriks (R):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (CC) (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                        <th>Kapasitas Kursi (C4)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-saw-norm">
+                                    <!-- Normalization rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="saw-norm-info"></div>
+                    </div>
+
+                    <!-- Tab 3: Pembobotan -->
+                    <div class="tab-pane fade" id="saw-tab-3">
+                        <h6 class="text-white mb-2">Perkalian Rating Ternormalisasi dengan Bobot Kriteria
+                            (V<sub>i</sub>):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th class="d-none d-lg-table-cell">Langkah Perhitungan</th>
+                                        <th>Skor Preferensi (Sistem)</th>
+                                        <th>Skor Pembulatan (Handwritten)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-saw-weight">
+                                    <!-- Weighting rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Ranking -->
+                    <div class="tab-pane fade" id="saw-tab-4">
+                        <h6 class="text-white mb-3">Urutan Pilihan Terbaik Berdasarkan Skor SAW:</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Nama Alternatif Mobil</th>
+                                        <th>Total Skor Akhir</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-saw-rank">
+                                    <!-- Ranking rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: PERHITUNGAN WP ==================== -->
+        <section id="section-perhitungan-wp" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-primary me-2"></i>Langkah
+                        Perhitungan WP (Weighted Product)</h4>
+                    <button class="btn btn-sm btn-primary btn-export-pdf" data-method="wp"><i
+                            class="fa-solid fa-file-pdf me-1"></i> Cetak Laporan PDF</button>
+                </div>
+
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#wp-tab-1">1. Matriks
+                            Keputusan</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wp-tab-2">2. Vektor S</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wp-tab-3">3. Vektor V</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#wp-tab-4">4. Ranking
+                            Akhir</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-2">
+                    <!-- Tab 1: Matriks Keputusan -->
+                    <div class="tab-pane fade show active" id="wp-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan (X):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (CC) (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                        <th>Kapasitas Kursi (C4)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-wp-matrix">
+                                    <!-- Matrix rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Vektor S -->
+                    <div class="tab-pane fade" id="wp-tab-2">
+                        <div class="p-3 border border-secondary rounded bg-dark mb-4 fs-13 text-secondary">
+                            <strong>Rumus Vektor S (S<sub>i</sub>):</strong> S<sub>i</sub> = &prod;
+                            (x<sub>ij</sub>)<sup>w<sub>j</sub></sup><br>
+                            - Bobot pangkat bernilai positif (+) untuk Kriteria **Benefit** (C2, C4)<br>
+                            - Bobot pangkat bernilai negatif (-) untuk Kriteria **Cost** (C1, C3)
+                        </div>
+                        <h6 class="text-white mb-2">Hasil Perhitungan Vektor S:</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th class="d-none d-lg-table-cell">Rumus Exponent Perkalian</th>
+                                        <th>Nilai Vektor S</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-wp-s">
+                                    <!-- Vector S rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="wp-s-info"></div>
+                    </div>
+
+                    <!-- Tab 3: Vektor V -->
+                    <div class="tab-pane fade" id="wp-tab-3">
+                        <div class="p-3 border border-secondary rounded bg-dark mb-4 fs-13 text-secondary">
+                            <strong>Rumus Vektor V (V<sub>i</sub>):</strong> V<sub>i</sub> = S<sub>i</sub> / &Sigma;
+                            S<sub>j</sub>
+                        </div>
+                        <h6 class="text-white mb-2">Hasil Perhitungan Vektor V:</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th class="d-none d-lg-table-cell">Langkah Pembagian</th>
+                                        <th>Nilai Preferensi Vektor V</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-wp-v">
+                                    <!-- Vector V rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Ranking -->
+                    <div class="tab-pane fade" id="wp-tab-4">
+                        <h6 class="text-white mb-3">Peringkat Mobil Terbaik Berdasarkan Vektor V:</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Nama Alternatif Mobil</th>
+                                        <th>Nilai Preferensi Akhir (V)</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-wp-rank">
+                                    <!-- Ranking rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 6: PERHITUNGAN SMART ==================== -->
+        <section id="section-perhitungan-smart" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-warning me-2"></i>Langkah
+                        Perhitungan SMART</h4>
+                    <button class="btn btn-sm btn-warning text-dark btn-export-pdf" data-method="smart"><i
+                            class="fa-solid fa-file-pdf me-1"></i> Cetak Laporan PDF</button>
+                </div>
+
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#smart-tab-1">1. Matriks
+                            Keputusan</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#smart-tab-2">2. Nilai
+                            Utility</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#smart-tab-3">3. Pembobotan &
+                            Nilai SMART</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#smart-tab-4">4. Ranking
+                            Akhir</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-2">
+                    <!-- Tab 1: Matriks Keputusan -->
+                    <div class="tab-pane fade show active" id="smart-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan (X):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (CC) (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                        <th>Kapasitas Kursi (C4)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-smart-matrix">
+                                    <!-- Matrix rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Utility -->
+                    <div class="tab-pane fade" id="smart-tab-2">
+                        <div class="p-3 border border-secondary rounded bg-dark mb-4 fs-13 text-secondary">
+                            <strong>Rumus Perhitungan Nilai Utility (u<sub>ij</sub>):</strong> Utility menskala ulang
+                            nilai antara 0 (paling buruk) dan 1 (paling baik):<br>
+                            - Kriteria Benefit (C2, C4): u<sub>ij</sub> = (x<sub>ij</sub> - min<sub>j</sub>) /
+                            (max<sub>j</sub> - min<sub>j</sub>)<br>
+                            - Kriteria Cost (C1, C3): u<sub>ij</sub> = (max<sub>j</sub> - x<sub>ij</sub>) /
+                            (max<sub>j</sub> - min<sub>j</sub>)
+                        </div>
+                        <h6 class="text-white mb-2">Tabel Nilai Utility (U):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Harga (C1)</th>
+                                        <th>Kapasitas Mesin (CC) (C2)</th>
+                                        <th>Kilometer (C3)</th>
+                                        <th>Kapasitas Kursi (C4)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-smart-utility">
+                                    <!-- Utility rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="smart-bounds-info"></div>
+                    </div>
+
+                    <!-- Tab 3: Weighting -->
+                    <div class="tab-pane fade" id="smart-tab-3">
+                        <h6 class="text-white mb-2">Penjumlahan Terbobot dari Utility (V<sub>i</sub>):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th class="d-none d-lg-table-cell">Langkah Perhitungan</th>
+                                        <th>Total Nilai SMART</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-smart-weight">
+                                    <!-- Weighting rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Ranking -->
+                    <div class="tab-pane fade" id="smart-tab-4">
+                        <h6 class="text-white mb-3">Hasil Ranking Terbawah s/d Terbaik (SMART):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Nama Alternatif Mobil</th>
+                                        <th>Nilai SMART Preferensi</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-smart-rank">
+                                    <!-- Ranking rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 7: RECOMMENDATIONS & COMPARISONS ==================== -->
+        <section id="section-ranking" class="d-none animate__animated animate__fadeIn">
+            <!-- Title with Export and Academic note -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+                <div>
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-award text-danger me-2"></i>Rekomendasi Mobil
+                        Bekas Terbaik</h4>
+                    <p class="text-secondary fs-13 mb-0">Rekomendasi terhitung otomatis berdasarkan penyeimbangan
+                        kriteria SAW</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-info btn-export-pdf" data-method="saw">
+                        <i class="fa-solid fa-file-pdf me-2"></i> Cetak Rekomendasi SAW
+                    </button>
+                    <button class="btn btn-outline-primary btn-export-pdf" data-method="wp">
+                        <i class="fa-solid fa-file-pdf me-2"></i> Cetak Rekomendasi WP
+                    </button>
+                </div>
+            </div>
+
+            <!-- Top Cards Grid -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5" id="recommendations-grid">
+                <!-- Cards injected by JS -->
+            </div>
+
+            <!-- Comparison Table for SAW vs WP vs SMART side-by-side -->
+            <div class="glass-panel p-4">
+                <h4 class="mb-3 text-white"><i class="fa-solid fa-scale-balanced text-warning me-2"></i>Tabel
+                    Perbandingan Hasil Ranking Tiga Metode</h4>
+                <p class="text-secondary fs-13 mb-4">
+                    Membandingkan urutan ranking alternatif mobil bekas antara metode **SAW, WP, dan SMART**. Membantu
+                    memvalidasi keakuratan pengambilan keputusan dari berbagai sudut pandang matematis.
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th>Nama Alternatif Mobil</th>
+                                <th class="text-center bg-dark text-info">Ranking SAW (Skor Preferensi)</th>
+                                <th class="text-center bg-dark text-primary">Ranking WP (Vektor V)</th>
+                                <th class="text-center bg-dark text-warning">Ranking SMART (Skor Utility)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-ranking-comparison">
+                            <!-- Comparison rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 8: VISUALISASI DATA ==================== -->
+        <section id="section-visualisasi" class="d-none animate__animated animate__fadeIn">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <div>
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-chart-column text-success me-2"></i>Visualisasi
+                        Data Interaktif (Dashboard Tableau-Style)</h4>
+                    <p class="text-secondary fs-13 mb-0">Analisis visual mendalam dari dataset mobil bekas yang aktif di
+                        sistem</p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <!-- Bar Chart Kapasitas Mesin -->
+                <div class="col-lg-6">
+                    <div class="glass-panel tableau-chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title"><i class="fa-solid fa-gauge-high"></i> Kapasitas Mesin per
+                                Mobil</span>
+                        </div>
+                        <div id="chart-engine"></div>
+                    </div>
+                </div>
+
+                <!-- Bubble Chart Harga Mobil -->
+                <div class="col-lg-6">
+                    <div class="glass-panel tableau-chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title"><i class="fa-solid fa-circle-dot"></i> Trade-off Harga vs
+                                Kilometer vs CC (Bubble)</span>
+                        </div>
+                        <div id="chart-price-bubble"></div>
+                    </div>
+                </div>
+
+                <!-- Treemap Kapasitas Tempat Duduk -->
+                <div class="col-lg-6">
+                    <div class="glass-panel tableau-chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title"><i class="fa-solid fa-grip"></i> Treemap Jumlah Kursi
+                                Penumpang</span>
+                        </div>
+                        <div id="chart-seats-treemap"></div>
+                    </div>
+                </div>
+
+                <!-- Horizontal Bar Kilometer -->
+                <div class="col-lg-6">
+                    <div class="glass-panel tableau-chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title"><i class="fa-solid fa-road"></i> Kilometer Tempuh (KM) per
+                                Mobil</span>
+                        </div>
+                        <div id="chart-mileage"></div>
+                    </div>
+                </div>
+
+                <!-- Radar Perbandingan Tiga Metode -->
+                <div class="col-lg-12">
+                    <div class="glass-panel tableau-chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title"><i class="fa-solid fa-chart-radar text-info"></i> Radar
+                                Perbandingan Skor (SAW vs WP vs SMART) Top 5 Mobil</span>
+                        </div>
+                        <div id="chart-radar-comparison"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 9: TENTANG SISTEM ==================== -->
+        <section id="section-tentang" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <h4 class="mb-3 text-white"><i class="fa-solid fa-circle-info text-info me-2"></i>Tentang Sistem
+                    Pendukung Keputusan (SPK)</h4>
+
+                <div class="row g-4 fs-14">
+                    <div class="col-md-7 text-secondary">
+                        <p>
+                            Sistem Pendukung Keputusan (SPK) ini dikembangkan untuk membantu calon pembeli dalam
+                            memecahkan masalah pemilihan pembelian mobil bekas yang sering kali membingungkan karena
+                            banyaknya kriteria yang saling bertolak belakang (misal: mesin besar tapi kilometer tinggi,
+                            atau harga murah tapi kursi sedikit).
+                        </p>
+                        <p>
+                            Dengan menerapkan tiga buah metode pengambilan keputusan multikriteria (MCDM), yaitu
+                            **Simple Additive Weighting (SAW)**, **Weighted Product (WP)**, dan **SMART**, sistem ini
+                            memberikan hasil perangkingan alternatif yang objektif, transparan, dan dapat
+                            dipertanggungjawabkan secara matematis.
+                        </p>
+                        <p class="mb-0">
+                            Penerapan visualisasi data interaktif menyerupai Tableau membantu pengguna membaca sebaran
+                            data alternatif secara visual dengan interaksi yang dinamis.
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="p-3 border border-secondary rounded bg-dark h-100">
+                            <h6 class="text-white mb-3 text-center">BIODATA AKADEMIK MAHASISWA</h6>
+                            <table class="table table-sm table-borderless text-secondary fs-13 mb-0">
+                                <tr>
+                                    <td><strong>Nama Lengkap:</strong></td>
+                                    <td>Duta Agung Pramana</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>NIM:</strong></td>
+                                    <td>231011400036</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kelas:</strong></td>
+                                    <td>06TPLP001</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mata Kuliah:</strong></td>
+                                    <td>Sistem Pendukung Keputusan</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Program Studi:</strong></td>
+                                    <td>Teknik Informatika (S1)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Universitas:</strong></td>
+                                    <td>Universitas Pamulang (UNPAM)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mathematical Formulas explanation -->
+            <div class="glass-panel p-4">
+                <h4 class="mb-4 text-white"><i class="fa-solid fa-square-root-variable text-warning me-2"></i>Dasar
+                    Rumus & Algoritma</h4>
+                <div class="row g-4 fs-13 text-secondary">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-info mb-2 fw-bold">1. Simple Additive Weighting (SAW)</h6>
+                            <p>Dikenal sebagai metode penjumlahan terbobot. Mencari jumlah perkalian terbobot dari
+                                rating kinerja ternormalisasi.</p>
+                            <strong>Normalisasi linear:</strong><br>
+                            - Benefit: r<sub>ij</sub> = x<sub>ij</sub> / max(x<sub>ij</sub>)<br>
+                            - Cost: r<sub>ij</sub> = min(x<sub>ij</sub>) / x<sub>ij</sub><br>
+                            <strong>Skor Preferensi:</strong> V<sub>i</sub> = &Sigma; (w<sub>j</sub> &times;
+                            r<sub>ij</sub>)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-primary mb-2 fw-bold">2. Weighted Product (WP)</h6>
+                            <p>Mengevaluasi beberapa alternatif berdasarkan perkalian rating kecocokan kriteria yang
+                                dipangkatkan dengan bobot.</p>
+                            <strong>Vektor S preferensi:</strong> S<sub>i</sub> = &prod;
+                            (x<sub>ij</sub>)<sup>w<sub>j</sub></sup><br>
+                            - Pangkat positif (+) untuk Benefit.<br>
+                            - Pangkat negatif (-) untuk Cost.<br>
+                            <strong>Vektor V relatif:</strong> V<sub>i</sub> = S<sub>i</sub> / &Sigma; S<sub>j</sub>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-warning mb-2 fw-bold">3. SMART Technique</h6>
+                            <p>Merupakan kalkulasi multiatribut sederhana yang menormalkan nilai kriteria ke rentang
+                                absolut 0 (terburuk) s/d 1 (terbaik).</p>
+                            <strong>Nilai Utility (u<sub>ij</sub>):</strong><br>
+                            - Benefit: u<sub>ij</sub> = (x<sub>ij</sub> - min) / (max - min)<br>
+                            - Cost: u<sub>ij</sub> = (max - x<sub>ij</sub>) / (max - min)<br>
+                            <strong>Nilai Akhir:</strong> Score = &Sigma; (w<sub>j</sub> &times; u<sub>ij</sub>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ACADEMIC ==================== -->
+        <footer class="animate__animated animate__fadeIn">
+            <div class="container-fluid">
+                <div class="footer-content">
+                    <div class="footer-text">
+                        &copy; 2026 SPK Pemilihan Mobil Bekas. Dikembangkan Oleh <strong>Duta Agung Pramana.
+                    </div>
+                    <ul class="footer-links">
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#data-mobil">Data Mobil</a></li>
+                        <li><a href="#tentang">Biodata Developer</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ==================== MODAL FORM ADD/EDIT MOBIL ==================== -->
+    <div class="modal fade" id="modal-car" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title-car">Tambah Data Mobil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-car">
+                    <input type="hidden" id="car-id">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="car-name" class="form-label">Nama Mobil Bekas</label>
+                            <input type="text" class="form-control" id="car-name"
+                                placeholder="Contoh: Toyota Avanza Veloz" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="car-price" class="form-label">Harga Mobil (C1)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-muted">Rp</span>
+                                    <input type="number" step="any" class="form-control" id="car-price"
+                                        placeholder="Contoh: 35000" required>
+                                </div>
+                                <span class="fs-11 text-muted">Sesuai nilai manual kriteria (misal: 35000)</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="car-engine" class="form-label">Kapasitas Mesin (C2)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="car-engine" placeholder="Contoh: 1500"
+                                        required>
+                                    <span class="input-group-text bg-dark border-secondary text-muted">CC</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="car-mileage" class="form-label">Kilometer Tempuh (C3)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="car-mileage"
+                                        placeholder="Contoh: 50000" required>
+                                    <span class="input-group-text bg-dark border-secondary text-muted">KM</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="car-seats" class="form-label">Kapasitas Kursi (C4)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="car-seats" placeholder="Contoh: 7"
+                                        required>
+                                    <span class="input-group-text bg-dark border-secondary text-muted">Kursi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript Libraries CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Application Modules Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/saw.js"></script>
+    <script src="js/wp.js"></script>
+    <script src="js/smart.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
