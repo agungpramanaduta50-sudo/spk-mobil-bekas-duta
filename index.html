@@ -8,7 +8,7 @@
 
     <!-- SEO Optimization -->
     <meta name="description"
-        content="Sistem Pendukung Keputusan Pemilihan Mobil Bekas menggunakan tiga metode MCDM: SAW, WP, dan SMART. Studi Kasus Jurnal Akademik.">
+        content="Sistem Pendukung Keputusan Pemilihan Mobil Bekas menggunakan enam metode MCDM: SAW, WP, SMART, TOPSIS, MOORA, dan AHP. Studi Kasus Jurnal Akademik.">
     <meta name="author" content="Duta Agung Pramana">
 
     <!-- External CSS Libraries -->
@@ -69,6 +69,21 @@
                 </a>
             </li>
             <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-topsis">
+                    <i class="fa-solid fa-calculator text-danger"></i> <span>Perhitungan TOPSIS</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-moora">
+                    <i class="fa-solid fa-calculator text-success"></i> <span>Perhitungan MOORA</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#perhitungan-ahp">
+                    <i class="fa-solid fa-calculator text-info"></i> <span>Perhitungan AHP</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
                 <a class="sidebar-link" href="#ranking">
                     <i class="fa-solid fa-trophy text-danger"></i> <span>Rekomendasi & Ranking</span>
                 </a>
@@ -108,8 +123,8 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="page-title">
-                    <h2 class="mb-0 text-white fs-5 fs-sm-4">Sistem Pendukung Keputusan</h2>
-                    <p class="text-secondary mb-0 fs-13 d-none d-sm-block">Pemilihan Mobil Bekas dengan Metode SAW, WP & SMART</p>
+                    <h1 class="h3 mb-0 text-white fw-bold">Dashboard Multi-Method SPK</h1>
+                    <p class="text-secondary mb-0 mt-1 fs-14">Pemilihan Mobil Bekas dengan 6 Metode MCDM</p>
                 </div>
             </div>
             <div class="d-flex align-items-center gap-3">
@@ -141,7 +156,7 @@
                     <div class="glass-panel stat-card gold">
                         <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
                         <div class="stat-value text-truncate" id="stat-best-saw">-</div>
-                        <div class="stat-label" id="stat-best-saw-score">Skor SAW: 0.0000</div>
+                        <div class="stat-label" id="stat-best-saw-score">Rekomendasi Terbaik (6 Metode)</div>
                     </div>
                 </div>
             </div>
@@ -176,7 +191,7 @@
                             <h4 class="mb-3 text-info"><i class="fa-solid fa-circle-nodes me-2"></i>Multi-Method SPK
                             </h4>
                             <p class="text-secondary fs-14">
-                                Website ini dirancang khusus untuk membandingkan tiga metode MCDM (Multi-Criteria
+                                Website ini dirancang khusus untuk membandingkan enam metode MCDM (Multi-Criteria
                                 Decision Making) terpopuler:
                             </p>
                             <ul class="text-secondary fs-13 ps-3">
@@ -186,6 +201,12 @@
                                     dengan bobot kriteria.</li>
                                 <li class="mb-2"><strong>SMART:</strong> Normalisasi linear dengan perhitungan nilai
                                     utility rentang skala.</li>
+                                <li class="mb-2"><strong>TOPSIS:</strong> Pemilihan berdasarkan jarak terdekat dengan
+                                    solusi ideal positif.</li>
+                                <li class="mb-2"><strong>MOORA:</strong> Optimasi multi-objektif dengan pengukuran rasio
+                                    matriks.</li>
+                                <li class="mb-2"><strong>AHP:</strong> Pemecahan masalah kompleks menggunakan struktur
+                                    hirarki dan prioritas.</li>
                             </ul>
                         </div>
                         <div class="p-3 bg-dark rounded border border-secondary text-center mt-3">
@@ -354,9 +375,9 @@
                         </div>
                         <div class="p-3 bg-dark-opacity rounded border border-secondary text-secondary fs-13">
                             <strong><i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> Catatan:</strong>
-                            Total keseluruhan bobot kriteria harus sama dengan **1.00** (0.35 + 0.30 + 0.25 + 0.10 =
-                            1.00). Kriteria bertipe **Cost** berarti semakin kecil nilai mobil maka semakin baik
-                            ratingnya, sedangkan **Benefit** berarti semakin besar nilai mobil maka semakin baik
+                            Total keseluruhan bobot kriteria harus sama dengan <strong>1.00</strong> (0.35 + 0.30 + 0.25 + 0.10 =
+                            1.00). Kriteria bertipe <strong>Cost</strong> berarti semakin kecil nilai mobil maka semakin baik
+                            ratingnya, sedangkan <strong>Benefit</strong> berarti semakin besar nilai mobil maka semakin baik
                             ratingnya.
                         </div>
                     </div>
@@ -576,8 +597,8 @@
                         <div class="p-3 border border-secondary rounded bg-dark mb-4 fs-13 text-secondary">
                             <strong>Rumus Vektor S (S<sub>i</sub>):</strong> S<sub>i</sub> = &prod;
                             (x<sub>ij</sub>)<sup>w<sub>j</sub></sup><br>
-                            - Bobot pangkat bernilai positif (+) untuk Kriteria **Benefit** (C2, C4)<br>
-                            - Bobot pangkat bernilai negatif (-) untuk Kriteria **Cost** (C1, C3)
+                            - Bobot pangkat bernilai positif (+) untuk Kriteria <strong>Benefit</strong> (C2, C4)<br>
+                            - Bobot pangkat bernilai negatif (-) untuk Kriteria <strong>Cost</strong> (C1, C3)
                         </div>
                         <h6 class="text-white mb-2">Hasil Perhitungan Vektor S:</h6>
                         <div class="table-responsive">
@@ -766,6 +787,105 @@
             </div>
         </section>
 
+
+        <!-- ==================== SECTION TOPSIS ==================== -->
+        <section id="section-perhitungan-topsis" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-danger me-2"></i>Langkah Perhitungan TOPSIS</h4>
+                </div>
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#topsis-tab-1">1. Matriks Ternormalisasi</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#topsis-tab-2">2. Matriks Terbobot</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#topsis-tab-3">3. Jarak Ideal & Preferensi</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#topsis-tab-4">4. Ranking Akhir</button></li>
+                </ul>
+                <div class="tab-content mt-2">
+                    <div class="tab-pane fade show active" id="topsis-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan Ternormalisasi:</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody id="tbody-topsis-norm"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="topsis-tab-2">
+                        <h6 class="text-white mb-2">Matriks Keputusan Ternormalisasi Terbobot:</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody id="tbody-topsis-weight"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="topsis-tab-3">
+                        <h6 class="text-white mb-2">Jarak Solusi Ideal & Nilai Preferensi (V):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>Jarak Ideal Positif (D+)</th><th>Jarak Ideal Negatif (D-)</th><th>Nilai Preferensi (V)</th></tr></thead><tbody id="tbody-topsis-pref"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="topsis-tab-4">
+                        <h6 class="text-white mb-3">Hasil Ranking (TOPSIS):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Rank</th><th>Nama Alternatif Mobil</th><th>Nilai Preferensi (V)</th></tr></thead><tbody id="tbody-topsis-rank"></tbody></table></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION MOORA ==================== -->
+        <section id="section-perhitungan-moora" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-success me-2"></i>Langkah Perhitungan MOORA</h4>
+                </div>
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#moora-tab-1">1. Matriks Ternormalisasi</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#moora-tab-2">2. Matriks Terbobot</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#moora-tab-3">3. Nilai Optimasi (Y)</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#moora-tab-4">4. Ranking Akhir</button></li>
+                </ul>
+                <div class="tab-content mt-2">
+                    <div class="tab-pane fade show active" id="moora-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan Ternormalisasi:</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody id="tbody-moora-norm"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="moora-tab-2">
+                        <h6 class="text-white mb-2">Matriks Keputusan Ternormalisasi Terbobot:</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody id="tbody-moora-weight"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="moora-tab-3">
+                        <h6 class="text-white mb-2">Nilai Optimasi (Y = Benefit - Cost):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>Total Benefit</th><th>Total Cost</th><th>Nilai Optimasi (Y)</th></tr></thead><tbody id="tbody-moora-opt"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="moora-tab-4">
+                        <h6 class="text-white mb-3">Hasil Ranking (MOORA):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Rank</th><th>Nama Alternatif Mobil</th><th>Nilai Optimasi (Y)</th></tr></thead><tbody id="tbody-moora-rank"></tbody></table></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION AHP ==================== -->
+        <section id="section-perhitungan-ahp" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-calculator text-info me-2"></i>Langkah Perhitungan AHP (Simplified)</h4>
+                </div>
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#ahp-tab-1">1. Transformasi Data</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#ahp-tab-2">2. Normalisasi</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#ahp-tab-3">3. Skor Akhir</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#ahp-tab-4">4. Ranking Akhir</button></li>
+                </ul>
+                <div class="tab-content mt-2">
+                    <div class="tab-pane fade show active" id="ahp-tab-1">
+                        <h6 class="text-white mb-2">Transformasi Data (Kebalikan untuk Cost):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1 (Cost -> 1/x)</th><th>C2 (Benefit)</th><th>C3 (Cost -> 1/x)</th><th>C4 (Benefit)</th></tr></thead><tbody id="tbody-ahp-trans"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="ahp-tab-2">
+                        <h6 class="text-white mb-2">Normalisasi (Membagi dengan Jumlah Kolom):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody id="tbody-ahp-norm"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="ahp-tab-3">
+                        <h6 class="text-white mb-2">Skor Akhir (Dikali Bobot):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Alternatif</th><th>Total Skor AHP</th></tr></thead><tbody id="tbody-ahp-score"></tbody></table></div>
+                    </div>
+                    <div class="tab-pane fade" id="ahp-tab-4">
+                        <h6 class="text-white mb-3">Hasil Ranking (AHP):</h6>
+                        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Rank</th><th>Nama Alternatif Mobil</th><th>Total Skor AHP</th></tr></thead><tbody id="tbody-ahp-rank"></tbody></table></div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- ==================== SECTION 7: RECOMMENDATIONS & COMPARISONS ==================== -->
         <section id="section-ranking" class="d-none animate__animated animate__fadeIn">
             <!-- Title with Export and Academic note -->
@@ -796,7 +916,7 @@
                 <h4 class="mb-3 text-white"><i class="fa-solid fa-scale-balanced text-warning me-2"></i>Tabel
                     Perbandingan Hasil Ranking Tiga Metode</h4>
                 <p class="text-secondary fs-13 mb-4">
-                    Membandingkan urutan ranking alternatif mobil bekas antara metode **SAW, WP, dan SMART**. Membantu
+                    Membandingkan urutan ranking alternatif mobil bekas antara metode <strong>SAW, WP, dan SMART</strong>. Membantu
                     memvalidasi keakuratan pengambilan keputusan dari berbagai sudut pandang matematis.
                 </p>
                 <div class="table-responsive">
@@ -807,6 +927,9 @@
                                 <th class="text-center bg-dark text-info">Ranking SAW (Skor Preferensi)</th>
                                 <th class="text-center bg-dark text-primary">Ranking WP (Vektor V)</th>
                                 <th class="text-center bg-dark text-warning">Ranking SMART (Skor Utility)</th>
+                                <th class="text-center bg-dark text-danger">Ranking TOPSIS (Preferensi)</th>
+                                <th class="text-center bg-dark text-success">Ranking MOORA (Optimasi)</th>
+                                <th class="text-center bg-dark text-info">Ranking AHP (Skor Akhir)</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-ranking-comparison">
@@ -991,6 +1114,30 @@
                             <strong>Nilai Akhir:</strong> Score = &Sigma; (w<sub>j</sub> &times; u<sub>ij</sub>)
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-danger mb-2 fw-bold">4. TOPSIS</h6>
+                            <p>Berdasarkan konsep bahwa alternatif terbaik harus memiliki jarak terpendek dari solusi ideal positif dan jarak terjauh dari solusi ideal negatif.</p>
+                            <strong>Preferensi (V<sub>i</sub>):</strong><br>
+                            V<sub>i</sub> = D<sub>i</sub><sup>-</sup> / (D<sub>i</sub><sup>+</sup> + D<sub>i</sub><sup>-</sup>)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-success mb-2 fw-bold">5. MOORA</h6>
+                            <p>Metode multi-obyektif yang memisahkan kriteria menjadi benefit dan cost untuk menemukan nilai optimasi dengan tingkat selektivitas tinggi.</p>
+                            <strong>Nilai Optimasi (Y):</strong><br>
+                            Y = &Sigma; Benefit - &Sigma; Cost
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-dark-opacity rounded border border-secondary h-100">
+                            <h6 class="text-info mb-2 fw-bold">6. AHP (Simplified)</h6>
+                            <p>Menggunakan prinsip matriks terbobot dengan menguraikan masalah kompleks menjadi hierarki dan menskalakan prioritas alternatif.</p>
+                            <strong>Skor Akhir:</strong><br>
+                            Score = &Sigma; (Bobot Kriteria &times; Prioritas Ternormalisasi)
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1088,6 +1235,9 @@
     <script src="js/saw.js"></script>
     <script src="js/wp.js"></script>
     <script src="js/smart.js"></script>
+    <script src="js/topsis.js"></script>
+    <script src="js/moora.js"></script>
+    <script src="js/ahp.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/export.js"></script>
     <script src="js/app.js"></script>

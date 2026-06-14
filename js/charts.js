@@ -234,11 +234,14 @@ function renderAllCharts() {
         charts.mileageChart.render();
     }
     
-    // --- 5. RADAR CHART: PERBANDINGAN METODE (SAW, WP, SMART) ---
+    // --- 5. RADAR CHART: PERBANDINGAN METODE (SAW, WP, SMART, TOPSIS, MOORA, AHP) ---
     // Renders scores normalized to a 0-100 scale for comparison
     const resSAW = calculateSAW().ranking;
     const resWP = calculateWP().ranking;
     const resSMART = calculateSMART().ranking;
+    const resTOPSIS = calculateTOPSIS().ranking;
+    const resMOORA = calculateMOORA().ranking;
+    const resAHP = calculateAHP().ranking;
     
     // Limit to top 5 cars by SAW for visual legibility
     const topCars = resSAW.slice(0, 5).map(c => c.name);
@@ -246,6 +249,9 @@ function renderAllCharts() {
     const radarSAWData = [];
     const radarWPData = [];
     const radarSMARTData = [];
+    const radarTOPSISData = [];
+    const radarMOORAData = [];
+    const radarAHPData = [];
     
     topCars.forEach(name => {
         // SAW
@@ -259,6 +265,18 @@ function renderAllCharts() {
         // SMART
         const carSmart = resSMART.find(c => c.name === name);
         radarSMARTData.push(carSmart ? Math.round(carSmart.score * 100) : 0);
+
+        // TOPSIS
+        const carTopsis = resTOPSIS.find(c => c.name === name);
+        radarTOPSISData.push(carTopsis ? Math.round(carTopsis.score * 100) : 0);
+        
+        // MOORA
+        const carMoora = resMOORA.find(c => c.name === name);
+        radarMOORAData.push(carMoora ? Math.round(carMoora.score * 1000) : 0);
+        
+        // AHP
+        const carAhp = resAHP.find(c => c.name === name);
+        radarAHPData.push(carAhp ? Math.round(carAhp.score * 200) : 0);
     });
     
     const radarOptions = {
@@ -271,9 +289,12 @@ function renderAllCharts() {
         series: [
             { name: 'SAW (Skor × 100)', data: radarSAWData },
             { name: 'WP (Skor × 300)', data: radarWPData },
-            { name: 'SMART (Skor × 100)', data: radarSMARTData }
+            { name: 'SMART (Skor × 100)', data: radarSMARTData },
+            { name: 'TOPSIS (Skor × 100)', data: radarTOPSISData },
+            { name: 'MOORA (Skor × 1000)', data: radarMOORAData },
+            { name: 'AHP (Skor × 200)', data: radarAHPData }
         ],
-        colors: ['#00F5D4', '#3A86FF', '#8338EC'],
+        colors: ['#00F5D4', '#3A86FF', '#8338EC', '#EF4444', '#10B981', '#F59E0B'],
         stroke: { width: 2 },
         fill: { opacity: 0.15 },
         markers: { size: 4 },

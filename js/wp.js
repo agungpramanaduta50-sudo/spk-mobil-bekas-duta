@@ -70,7 +70,7 @@ function calculateWP() {
             name: item.name,
             s: item.s,
             v: parseFloat(v.toFixed(4)),
-            steps: `${item.s.toExponential(4)} / ${sumS.toExponential(4)}`
+            steps: `${item.s.toFixed(8)} / ${sumS.toFixed(8)}`
         };
     });
     
