@@ -234,7 +234,7 @@ function renderAllCharts() {
         charts.mileageChart.render();
     }
     
-    // --- 5. RADAR CHART: PERBANDINGAN METODE (SAW, WP, SMART, TOPSIS, MOORA, AHP) ---
+    // --- 5. RADAR CHART: PERBANDINGAN METODE (SAW, WP, SMART, TOPSIS, MOORA, AHP, PM) ---
     // Renders scores normalized to a 0-100 scale for comparison
     const resSAW = calculateSAW().ranking;
     const resWP = calculateWP().ranking;
@@ -242,6 +242,7 @@ function renderAllCharts() {
     const resTOPSIS = calculateTOPSIS().ranking;
     const resMOORA = calculateMOORA().ranking;
     const resAHP = calculateAHP().ranking;
+    const resPM = calculateProfileMatching().ranking;
     
     // Limit to top 5 cars by SAW for visual legibility
     const topCars = resSAW.slice(0, 5).map(c => c.name);
@@ -252,6 +253,7 @@ function renderAllCharts() {
     const radarTOPSISData = [];
     const radarMOORAData = [];
     const radarAHPData = [];
+    const radarPMData = [];
     
     topCars.forEach(name => {
         // SAW
@@ -277,6 +279,10 @@ function renderAllCharts() {
         // AHP
         const carAhp = resAHP.find(c => c.name === name);
         radarAHPData.push(carAhp ? Math.round(carAhp.score * 200) : 0);
+        
+        // Profile Matching
+        const carPm = resPM.find(c => c.name === name);
+        radarPMData.push(carPm ? Math.round(carPm.score * 20) : 0); // Scale PM (max usually around ~5) to 100
     });
     
     const radarOptions = {
@@ -292,9 +298,10 @@ function renderAllCharts() {
             { name: 'SMART (Skor × 100)', data: radarSMARTData },
             { name: 'TOPSIS (Skor × 100)', data: radarTOPSISData },
             { name: 'MOORA (Skor × 1000)', data: radarMOORAData },
-            { name: 'AHP (Skor × 200)', data: radarAHPData }
+            { name: 'AHP (Skor × 200)', data: radarAHPData },
+            { name: 'PM (Skor × 20)', data: radarPMData }
         ],
-        colors: ['#00F5D4', '#3A86FF', '#8338EC', '#EF4444', '#10B981', '#F59E0B'],
+        colors: ['#00F5D4', '#3A86FF', '#8338EC', '#EF4444', '#10B981', '#F59E0B', '#EC4899'],
         stroke: { width: 2 },
         fill: { opacity: 0.15 },
         markers: { size: 4 },

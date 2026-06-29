@@ -55,7 +55,7 @@ function setupRouter() {
 
 // Navigate to specific page
 function navigateToPage(pageId) {
-    const validPages = ['dashboard', 'data-mobil', 'kriteria', 'perhitungan-saw', 'perhitungan-wp', 'perhitungan-smart', 'perhitungan-topsis', 'perhitungan-moora', 'perhitungan-ahp', 'ranking', 'visualisasi', 'tentang'];
+    const validPages = ['dashboard', 'data-mobil', 'kriteria', 'perhitungan-saw', 'perhitungan-wp', 'perhitungan-smart', 'perhitungan-topsis', 'perhitungan-moora', 'perhitungan-ahp', 'profile-matching', 'ranking', 'visualisasi', 'tentang'];
     if (!validPages.includes(pageId)) return;
     
     currentPage = pageId;
@@ -97,6 +97,8 @@ function navigateToPage(pageId) {
         renderMooraTables();
     } else if (pageId === 'perhitungan-ahp') {
         renderAhpTables();
+    } else if (pageId === 'profile-matching') {
+        renderProfileMatchingTables();
     } else if (pageId === 'ranking') {
         renderRankingAndRecommendations();
     } else if (pageId === 'visualisasi') {
@@ -298,6 +300,7 @@ function loadDashboardStats() {
         try { getRanking(calculateTOPSIS().ranking); } catch(e) {}
         try { getRanking(calculateMOORA().ranking); } catch(e) {}
         try { getRanking(calculateAHP().ranking); } catch(e) {}
+        try { getRanking(calculateProfileMatching().ranking); } catch(e) {}
 
         // Find car with most points (Object.entries returns string keys, convert back to number)
         let bestId = null, bestPts = -1;
@@ -308,11 +311,11 @@ function loadDashboardStats() {
         const bestCar = cars.find(c => c.id === bestId);
         if (bestCar) {
             if (bestSawEl) bestSawEl.innerText = bestCar.name;
-            if (bestSawScoreEl) bestSawScoreEl.innerText = `Rekomendasi Terbaik (6 Metode)`;
+            if (bestSawScoreEl) bestSawScoreEl.innerText = `Rekomendasi Terbaik (7 Metode)`;
         }
     } else {
         if (bestSawEl) bestSawEl.innerText = "-";
-        if (bestSawScoreEl) bestSawScoreEl.innerText = `Rekomendasi Terbaik (6 Metode)`;
+        if (bestSawScoreEl) bestSawScoreEl.innerText = `Rekomendasi Terbaik (7 Metode)`;
     }
     
     // Render brief preview table on dashboard
@@ -1006,6 +1009,91 @@ function renderAhpTables() {
                 <td><span class="badge ${idx === 0 ? 'bg-info text-dark' : 'bg-dark border border-secondary'} px-2 py-1">${r.rank}</span></td>
                 <td><strong>${r.name}</strong></td>
                 <td><strong class="text-danger">${r.score.toFixed(4)}</strong></td>
+            </tr>
+        `).join('');
+    }
+}
+
+// ==========================================
+// RENDER PROFILE MATCHING TABLES
+// ==========================================
+function renderProfileMatchingTables() {
+    const res = calculateProfileMatching();
+    const cars = getAllCars();
+    
+    const tMatrix = document.getElementById('tbody-pm-matrix');
+    if (tMatrix) {
+        tMatrix.innerHTML = cars.map(c => `
+            <tr>
+                <td>${c.name}</td>
+                <td>Rp ${c.price.toLocaleString('id-ID')}</td>
+                <td>${c.engine} CC</td>
+                <td>${c.mileage.toLocaleString('id-ID')} KM</td>
+                <td>${c.seats}</td>
+            </tr>
+        `).join('');
+    }
+    
+    const tScale = document.getElementById('tbody-pm-scale');
+    if (tScale) {
+        tScale.innerHTML = res.scaled.map(s => `
+            <tr>
+                <td>${s.name}</td>
+                <td>${s.s1}</td>
+                <td>${s.s2}</td>
+                <td>${s.s3}</td>
+                <td>${s.s4}</td>
+            </tr>
+        `).join('');
+    }
+    
+    const tGap = document.getElementById('tbody-pm-gap');
+    if (tGap) {
+        tGap.innerHTML = res.gaps.map(g => `
+            <tr>
+                <td>${g.name}</td>
+                <td>${g.g1}</td>
+                <td>${g.g2}</td>
+                <td>${g.g3}</td>
+                <td>${g.g4}</td>
+            </tr>
+        `).join('');
+    }
+    
+    const tWeight = document.getElementById('tbody-pm-weight');
+    if (tWeight) {
+        tWeight.innerHTML = res.weights.map(w => `
+            <tr>
+                <td>${w.name}</td>
+                <td>${w.w1}</td>
+                <td>${w.w2}</td>
+                <td>${w.w3}</td>
+                <td>${w.w4}</td>
+            </tr>
+        `).join('');
+    }
+    
+    const tFactors = document.getElementById('tbody-pm-factors');
+    if (tFactors) {
+        tFactors.innerHTML = res.factors.map(f => `
+            <tr>
+                <td>${f.name}</td>
+                <td>${f.score_c1.toFixed(3)}</td>
+                <td>${f.score_c2.toFixed(3)}</td>
+                <td>${f.score_c3.toFixed(3)}</td>
+                <td>${f.score_c4.toFixed(3)}</td>
+                <td><strong>${f.total.toFixed(4)}</strong></td>
+            </tr>
+        `).join('');
+    }
+    
+    const tRank = document.getElementById('tbody-pm-rank');
+    if (tRank) {
+        tRank.innerHTML = res.ranking.map((r, idx) => `
+            <tr>
+                <td><span class="badge ${idx === 0 ? 'bg-primary' : 'bg-dark border border-secondary'} px-2 py-1">${r.rank}</span></td>
+                <td><strong>${r.name}</strong></td>
+                <td><strong class="text-primary">${r.score.toFixed(4)}</strong></td>
             </tr>
         `).join('');
     }

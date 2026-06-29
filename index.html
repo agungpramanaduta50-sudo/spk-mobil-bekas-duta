@@ -8,7 +8,7 @@
 
     <!-- SEO Optimization -->
     <meta name="description"
-        content="Sistem Pendukung Keputusan Pemilihan Mobil Bekas menggunakan enam metode MCDM: SAW, WP, SMART, TOPSIS, MOORA, dan AHP. Studi Kasus Jurnal Akademik.">
+        content="Sistem Pendukung Keputusan Pemilihan Mobil Bekas menggunakan tujuh metode MCDM: SAW, WP, SMART, TOPSIS, MOORA, dan AHP. Studi Kasus Jurnal Akademik.">
     <meta name="author" content="Duta Agung Pramana">
 
     <!-- External CSS Libraries -->
@@ -19,6 +19,13 @@
 
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Login Check -->
+    <script>
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
 </head>
 
 <body>
@@ -84,6 +91,11 @@
                 </a>
             </li>
             <li class="sidebar-menu-item">
+                <a class="sidebar-link" href="#profile-matching">
+                    <i class="fa-solid fa-users-viewfinder text-primary"></i> <span>Profile Matching</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item">
                 <a class="sidebar-link" href="#ranking">
                     <i class="fa-solid fa-trophy text-danger"></i> <span>Rekomendasi & Ranking</span>
                 </a>
@@ -96,6 +108,11 @@
             <li class="sidebar-menu-item">
                 <a class="sidebar-link" href="#tentang">
                     <i class="fa-solid fa-circle-info"></i> <span>Tentang Sistem</span>
+                </a>
+            </li>
+            <li class="sidebar-menu-item mt-auto pt-3 border-top border-secondary mt-3">
+                <a class="sidebar-link text-danger" href="#" onclick="sessionStorage.removeItem('isLoggedIn'); window.location.href='login.html'; return false;">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
                 </a>
             </li>
         </ul>
@@ -124,7 +141,7 @@
                 </button>
                 <div class="page-title">
                     <h1 class="h3 mb-0 text-white fw-bold">Dashboard Multi-Method SPK</h1>
-                    <p class="text-secondary mb-0 mt-1 fs-14">Pemilihan Mobil Bekas dengan 6 Metode MCDM</p>
+                    <p class="text-secondary mb-0 mt-1 fs-14">Pemilihan Mobil Bekas dengan 7 Metode MCDM</p>
                 </div>
             </div>
             <div class="d-flex align-items-center gap-3">
@@ -156,7 +173,7 @@
                     <div class="glass-panel stat-card gold">
                         <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
                         <div class="stat-value text-truncate" id="stat-best-saw">-</div>
-                        <div class="stat-label" id="stat-best-saw-score">Rekomendasi Terbaik (6 Metode)</div>
+                        <div class="stat-label" id="stat-best-saw-score">Rekomendasi Terbaik (7 Metode)</div>
                     </div>
                 </div>
             </div>
@@ -191,7 +208,7 @@
                             <h4 class="mb-3 text-info"><i class="fa-solid fa-circle-nodes me-2"></i>Multi-Method SPK
                             </h4>
                             <p class="text-secondary fs-14">
-                                Website ini dirancang khusus untuk membandingkan enam metode MCDM (Multi-Criteria
+                                Website ini dirancang khusus untuk membandingkan tujuh metode MCDM (Multi-Criteria
                                 Decision Making) terpopuler:
                             </p>
                             <ul class="text-secondary fs-13 ps-3">
@@ -207,6 +224,7 @@
                                     matriks.</li>
                                 <li class="mb-2"><strong>AHP:</strong> Pemecahan masalah kompleks menggunakan struktur
                                     hirarki dan prioritas.</li>
+                                <li class="mb-2"><strong>Profile Matching:</strong> Pencocokan kandidat dengan profil target ideal.</li>
                             </ul>
                         </div>
                         <div class="p-3 bg-dark rounded border border-secondary text-center mt-3">
@@ -940,6 +958,136 @@
             </div>
         </section>
 
+        <!-- METODE PROFILE MATCHING -->
+        <section id="section-profile-matching" class="d-none animate__animated animate__fadeIn">
+            <div class="glass-panel p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0 text-white"><i class="fa-solid fa-users-viewfinder text-primary me-2"></i>Langkah Perhitungan Profile Matching</h4>
+                </div>
+                
+                <ul class="nav nav-tabs nav-pills-custom mb-4" role="tablist">
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pm-tab-1">1. Matriks Awal</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pm-tab-2">2. Skala</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pm-tab-3">3. Gap</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pm-tab-4">4. Bobot</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pm-tab-5">5. Skor Akhir</button></li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Tab 1 -->
+                    <div class="tab-pane fade show active" id="pm-tab-1">
+                        <h6 class="text-white mb-2">Matriks Keputusan Awal (Data Asli):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>C1 (Harga)</th>
+                                        <th>C2 (Mesin)</th>
+                                        <th>C3 (Kilometer)</th>
+                                        <th>C4 (Kursi)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-matrix"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2 -->
+                    <div class="tab-pane fade" id="pm-tab-2">
+                        <h6 class="text-white mb-2">Pemetaan ke Skala (1-5):</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>C1 (Cost)</th>
+                                        <th>C2 (Benefit)</th>
+                                        <th>C3 (Cost)</th>
+                                        <th>C4 (Benefit)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-scale"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3 -->
+                    <div class="tab-pane fade" id="pm-tab-3">
+                        <h6 class="text-white mb-2">Perhitungan Gap (Alternatif - Target Ideal):</h6>
+                        <p class="text-secondary fs-13 mb-2">Nilai Target (Profil Ideal): C1=5, C2=5, C3=5, C4=5</p>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Gap C1</th>
+                                        <th>Gap C2</th>
+                                        <th>Gap C3</th>
+                                        <th>Gap C4</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-gap"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4 -->
+                    <div class="tab-pane fade" id="pm-tab-4">
+                        <h6 class="text-white mb-2">Konversi Gap menjadi Bobot:</h6>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>Bobot C1</th>
+                                        <th>Bobot C2</th>
+                                        <th>Bobot C3</th>
+                                        <th>Bobot C4</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-weight"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5 -->
+                    <div class="tab-pane fade" id="pm-tab-5">
+                        <h6 class="text-white mb-2">Perhitungan Nilai Akhir & Ranking:</h6>
+                        <p class="text-secondary fs-13 mb-2">Nilai Akhir = (Bobot Kriteria * Bobot Gap). Mengikuti bobot kriteria yang sama: W1=0.35, W2=0.30, W3=0.25, W4=0.10</p>
+                        <div class="table-responsive mb-4">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Alternatif</th>
+                                        <th>(W1 * GapC1)</th>
+                                        <th>(W2 * GapC2)</th>
+                                        <th>(W3 * GapC3)</th>
+                                        <th>(W4 * GapC4)</th>
+                                        <th>Total Skor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-factors"></tbody>
+                            </table>
+                        </div>
+                        <h6 class="text-warning mt-4"><i class="fa-solid fa-trophy me-2"></i>Hasil Akhir & Perangkingan (Profile Matching)</h6>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle text-center">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th width="15%">Ranking</th>
+                                        <th width="50%" class="text-start">Nama Mobil</th>
+                                        <th width="35%">Total Skor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pm-rank"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ==================== SECTION 8: VISUALISASI DATA ==================== -->
         <section id="section-visualisasi" class="d-none animate__animated animate__fadeIn">
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
@@ -1238,6 +1386,7 @@
     <script src="js/topsis.js"></script>
     <script src="js/moora.js"></script>
     <script src="js/ahp.js"></script>
+    <script src="js/profile_matching.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/export.js"></script>
     <script src="js/app.js"></script>
